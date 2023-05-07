@@ -1,0 +1,25 @@
+{
+  "name": "fooddoor-backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongodb": "^5.4.0",
+    "mongoose": "^7.1.0",
+    "morgan": "~1.9.1"
+  },
+  "projectConfig": {
+    "mongoConnectionUrl": "mongodb://127.0.0.1:27017/",
+    "serverIp": "localhost",
+    "serverPort": 3000
+  }
+}
