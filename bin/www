@@ -74,5 +74,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  console.log(`Fooddoor app is listning at http://${serverConfig.ip}/${serverConfig.port}/`)
+  console.log(`Fooddoor app is listning at http://${serverConfig.ip}:${serverConfig.port}/`)
 }
