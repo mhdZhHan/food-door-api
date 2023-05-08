@@ -4,6 +4,8 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 
+const cors = require('cors')
+
 // routes
 var indexRouter = require('./routes/index')
 var authRouter = require('./routes/api/v1/auth')
@@ -14,6 +16,8 @@ MongoDb.connectToMongoDb() // db connection
 
 // express inistance
 var app = express()
+
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
