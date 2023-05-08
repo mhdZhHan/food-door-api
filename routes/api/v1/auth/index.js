@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 
-const { userRegister, userLogin } = require('../../../../services/auth.service')
+const { userRegister, userLogin, checkUserExist } = require('../../../../services/auth.service')
 
 
 router.post('/signup', async (req, res, next) => {
@@ -17,6 +17,13 @@ router.post('/login', async (req, res)=>{
     let response = await userLogin(body)
 
     res.json(response) // send a response data
+})
+
+router.get('/user-exist', async (req, res)=>{
+    let params = req.query
+    let response = await checkUserExist(params)
+
+    res.json(response)
 })
 
 module.exports = router

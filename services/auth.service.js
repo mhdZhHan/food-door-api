@@ -134,7 +134,47 @@ const userLogin = async (user) => {
 }
 
 
+const checkUserExist = async (query) => {
+    let response_data = {}
+
+    let message = {
+        username: "Username is alredy taken",
+        email: "User with this email address is alredy exist"
+    }
+    
+    let queryType = Object.keys(query)[0] // query key index of 0
+
+    try {
+        let user_data = await MongoDb.db
+            .collection(mongoConfig.collections.USERS)
+            .findOne(query)
+
+        if(!user_data) {
+            response_data = {
+                status: true,
+                message: `This ${queryType} is not taken`,
+                data: user_data,
+            }
+        }else {
+            response_data = {
+                status: false,
+                message: `${message[queryType]}`,
+                data: user_data, // null
+            }
+        }
+    }catch (error) {
+        response_data = {
+            status: false,
+            error: error,
+        }
+    }
+
+    return response_data
+}
+
+
 module.exports = {
     userRegister,
-    userLogin
+    userLogin,
+    checkUserExist,
 }
