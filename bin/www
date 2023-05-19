@@ -5,6 +5,9 @@ var http = require('http')
 // config
 const { serverConfig } = require('../config')
 
+// utils
+const getIPAddress = require('../utils/getServerIPAddress')
+
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
@@ -12,9 +15,13 @@ app.set('port', port);
 var server = http.createServer(app);
 
 
+// ipAddress
+const currentSystemIp = getIPAddress()
+const serverIp = serverConfig.ip || currentSystemIp
+
 // Listen on provided port, on all network interfaces.
 
-server.listen(serverConfig.port, serverConfig.ip)
+server.listen(serverConfig.port, serverIp)
 server.on('error', onError)
 server.on('listening', onListening)
 
@@ -74,5 +81,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  console.log(`Fooddoor app is listning at http://${serverConfig.ip}:${serverConfig.port}/`)
+  console.log(`Fooddoor app is listning at http://${serverIp}:${serverConfig.port}/`)
 }

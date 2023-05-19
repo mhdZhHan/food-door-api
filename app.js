@@ -9,6 +9,7 @@ const cors = require('cors')
 // routes
 var indexRouter = require('./routes/index')
 var authRouter = require('./routes/api/v1/auth')
+var userRouter = require('./routes/api/v1/auth/user.route')
 
 // services (mongodb connection)
 const MongoDb = require('./services/mongodb.service')
@@ -30,9 +31,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+// coustom middlewares
+app.use('*', require('./middleware/tockenVerification').tockenVerification)
 // routes
 app.use('/', indexRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/auth', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
