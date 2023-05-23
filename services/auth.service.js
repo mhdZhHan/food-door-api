@@ -96,7 +96,7 @@ const userLogin = async (user) => {
                     const token = jwt.sign(
                         {
                             username: user_data?.username,
-                            password: user_data?.password
+                            email: user_data?.email
                         },
                         jwtTokenSecret,
                         {
@@ -131,6 +131,64 @@ const userLogin = async (user) => {
     }
 
     return response_data
+}
+
+
+const refreshToken = async (req, res) => {
+    console.log(`tokenRefresh | Middleware | ${req?.originalUrl}`)
+
+    try {
+        let token = req?.headers['authorization']
+        if(token && token?.startsWith("Bearer ")){
+            token = token.slice(7, token?.length)
+            console.log('TOKEN', token)
+
+            jwt.verify(token, jwtTokenSecret, { ignoreExpiration: true }, (error, decoded) => {
+                if(error){
+                    res.status(401).json({
+                        status: false,
+                        message: "Invalid token",
+                        error: `Invalid token: ${error?.message}`
+                    })
+                }else {
+                    console.log('=======================================');
+                    console.log(decoded?.email);
+                    console.log(decoded?.username);
+                    console.log('=======================================');
+                    if(decoded?.username && decoded?.email){
+                        let newToken = jwt.sign(
+                            { username: decoded?.username, email: decoded?.email },
+                            jwtTokenSecret,
+                            { expiresIn: '24h' }
+                        )
+
+                        res.json({
+                            status: true,
+                            message: "Token refresh successful",
+                            refresh: newToken,
+                        })
+                    }else {
+                        res.status(401).json({
+                            status: false,
+                            message: `${error?.name} ${error?.email}: Invalid token`,
+                            error: `Invalid token: ${error?.message}`
+                        })
+                    }
+                }
+            })
+        }else {
+            res.status(401).json({
+                status: false,
+                message: "Token missing",
+            })
+        }
+    } catch (error) {
+        res.status(401).json({
+            status: false,
+            message: `${error?.name} ${error?.email} : Token refresh failed`,
+            error: `Token refresh failed: ${error?.message}`
+        })
+    }
 }
 
 
@@ -176,5 +234,6 @@ const checkUserExist = async (query) => {
 module.exports = {
     userRegister,
     userLogin,
+    refreshToken,
     checkUserExist,
 }

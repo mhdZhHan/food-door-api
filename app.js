@@ -36,7 +36,7 @@ app.use('*', require('./middleware/tockenVerification').tockenVerification)
 // routes
 app.use('/', indexRouter);
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/auth', userRouter);
+app.use('/api/v1/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

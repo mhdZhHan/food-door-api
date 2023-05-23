@@ -4,7 +4,7 @@ const router = express.Router()
 const getUserData = require('../../../../services/user.service')
 
 // get user data
-router.get('/user', async (req, res)=>{
+router.get('', async (req, res)=>{
     let username = req?.username
     let response = await getUserData(username)
 

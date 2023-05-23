@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 
-const { userRegister, userLogin, checkUserExist } = require('../../../../services/auth.service')
+const { userRegister, userLogin, refreshToken, checkUserExist } = require('../../../../services/auth.service')
 
 
 router.post('/signup', async (req, res, next) => {
@@ -18,6 +18,8 @@ router.post('/login', async (req, res)=>{
 
     res.json(response) // send a response data
 })
+
+router.post('/token/refresh', refreshToken)
 
 router.get('/user-exist', async (req, res)=>{
     let params = req.query
