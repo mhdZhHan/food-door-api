@@ -1,5 +1,5 @@
 const MongoDb = require('./mongodb.service')
-const { mongoConfig, jwtTokenSecret } = require('../config')
+const { mongoConfig } = require('../config')
 
 
 const getAllRestaurants = async () => {
