@@ -28,6 +28,8 @@ const getAllRestaurants = async () => {
             error: error?.message,
         } 
     }
+
+    return response_data
 }
 
 module.exports = {
