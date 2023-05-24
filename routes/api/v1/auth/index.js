@@ -1,7 +1,8 @@
 var express = require('express')
 var router = express.Router()
 
-const { userRegister, userLogin, refreshToken, checkUserExist } = require('../../../../services/auth.service')
+const { userRegister, userLogin, 
+    refreshToken, checkUserExist } = require('../../../../services/auth.service')
 
 
 router.post('/signup', async (req, res, next) => {
