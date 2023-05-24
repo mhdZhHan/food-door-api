@@ -6,6 +6,7 @@ module.exports = {
         database_name: 'db_fooddoor',
         collections: {
             USERS: 'users',
+            RESTAURANTS: 'restaurants'
         },
     },
 

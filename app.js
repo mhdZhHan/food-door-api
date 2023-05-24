@@ -6,10 +6,10 @@ var logger = require('morgan')
 
 const cors = require('cors')
 
-// routes
-var indexRouter = require('./routes/index')
+// routers
 var authRouter = require('./routes/api/v1/auth')
 var userRouter = require('./routes/api/v1/auth/user.route')
+var restaurantsRouter = require('./routes/api/v1/restaurants')
 
 // services (mongodb connection)
 const MongoDb = require('./services/mongodb.service')
@@ -35,7 +35,7 @@ app.use(express.static('static'));
 // coustom middlewares
 app.use('*', require('./middleware/tockenVerification').tockenVerification)
 // routes
-app.use('/', indexRouter);
+app.use('/api/v1/restaurants', restaurantsRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', userRouter);
 
